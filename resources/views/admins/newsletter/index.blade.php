@@ -27,6 +27,9 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Author</th>
+                <th>Content</th>
+                <th>Image</th>
             </tr>
         </thead>
         <tbody>
@@ -39,16 +42,43 @@
 @include('layouts.admins.footer')
 <script>
     $(document).ready(function(){
-        $("#newsLetterTable").DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": "https://newsapi.org/v2/top-headlines?country=us&apiKey=9e56665dd12747d699700625112fe619",       
-            dataSrc: 'articles',
-            columns: [
-                { data: 'title' },
-            ]
+        // $("#newsLetterTable").DataTable({
+        //     "processing": true,
+        //     "serverSide": true,
+        //     "type":"json",
+        //     "ajax": "https://newsapi.org/v2/top-headlines?country=us&apiKey=9e56665dd12747d699700625112fe619",       
+        //     dataSrc: 'articles',
+        //     columns: [
+        //         { data: 'title' },
+        //     ]
  
+        // });
+        $.ajax({
+            url : 'https://newsapi.org/v2/top-headlines?country=us&apiKey=9e56665dd12747d699700625112fe619',
+            type : 'GET',
+            dataType : 'json',
+            success : function(data) {
+                bindtoDatatable(data.articles);
+            }
         });
+        function bindtoDatatable(data) {
+            var table = $('#newsLetterTable').dataTable({
+                "bAutoWidth" : false,
+                "aaData" : data,
+                "columns" : [
+                    {"data" : "title"},
+                    {"data" : "author"},
+                    {"data" : "content"},
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    render: function (data, type, row, meta) {
+                        data = `<img src='${row.urlToImage}' width='50%'>`;
+                        return data;
+                    }
+                }],
+            })
+    }
     });
 
 </script>

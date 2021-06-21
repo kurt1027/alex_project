@@ -1,4 +1,6 @@
 @include('layouts.admins.header')
 @include('layouts.partials.navbars')
-@include('layouts.partials.dashboard-counts')
+@if(Auth::user()->role == 'Admin')
+    @include('layouts.partials.dashboard-counts')
+@endif
 @include('layouts.admins.footer')
