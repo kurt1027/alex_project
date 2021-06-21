@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button> <a href="{{ url('admin/companies') }}" class="btn btn-danger">Cancel</a>
         </form>
         <br>
         @if($errors->any())

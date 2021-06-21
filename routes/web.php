@@ -30,5 +30,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/show/edit/company/{id}', 'AdminController@showEditCompany');
     Route::post('/do/edit/company', 'AdminController@doEditCompany');
     Route::get('/delete/company/{id}', 'AdminController@doDeleteCompany');
+
+    Route::get('/news-letter', 'AdminController@showNewsLetter');
+    Route::get('/ajax/datatables/news-letter', 'AdminController@ajaxDataTablesCompanies')->name('ajax.datatables');
+    Route::get('/show/add/news-letter', 'AdminController@showAddCompany');
+    Route::post('/add/news-letter', 'AdminController@addCompany');
+    Route::get('/show/edit/news-letter/{id}', 'AdminController@showEditCompany');
+    Route::post('/do/edit/news-letter', 'AdminController@doEditCompany');
+    Route::get('/delete/news-letter/{id}', 'AdminController@doDeleteCompany');
 });
+
+
 

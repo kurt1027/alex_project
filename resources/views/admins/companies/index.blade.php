@@ -29,7 +29,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Website</th>
-                <th>Actions</th>
+                <th>Action</th>
+
             </tr>
         </thead>
         <tbody>
@@ -46,7 +47,13 @@
             "processing": true,
             "serverSide": true,
             "ajax": "{{ route('ajax.datatables') }}",
+            // "columns": [
+            //         { "title": "name", "data": "name" },
+            //         { "title": "email", "data": "email" },
+            //         { "title": "website", "data": "website" }
+            // ],
             columnDefs: [
+                
                 {
                     "targets": [0],
                     "data" : "name",
@@ -61,7 +68,15 @@
                     "targets": [2],
                     "data" : "website",
                     "defaultContent": "-",
-                }     
+                },
+                {
+                    targets: 3,
+                    render: function (data, type, row, meta) {
+                    data = `<a href='{{ url('admin/show/edit/company/${row.id}') }}' class="btn btn-primary">Edit</a> &nbsp;`;
+                    data += `<a href='{{ url('admin/delete/company/${row.id}') }}' class="btn btn-danger">Delete</a>`;
+                       return data;
+                    }
+                }
             ]
         });
     });

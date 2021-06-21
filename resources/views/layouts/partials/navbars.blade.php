@@ -96,6 +96,14 @@
               </a>
             </li>
           @endif    
+          <li class="nav-item">
+            <a href="{{ url('admin/news-letter') }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage News Letter
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

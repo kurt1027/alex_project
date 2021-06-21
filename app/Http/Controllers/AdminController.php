@@ -122,7 +122,116 @@ class AdminController extends Controller
             return redirect('admin/companies');
         }
     }
-    public function doDeleteCompany($id)
+    public function doDeleteCompany(Request $request,$id)
+    {
+            $company = User::find($id);
+
+            $company->status = 0;
+
+            $company->save();
+
+            $request->session()->flash('success', 'You have successfully deleted a Company.');
+
+            return redirect('admin/companies');
+    }
+
+    public function showNewsLetter()
+    {
+        return view('admins.newsletter.index');
+    }
+    public function ajaxDataTablesNewsLetter()
+    {
+        $data = User::where([
+            ['role','Company'],
+            ['status',1]
+        ])
+        ->get();
+        return Datatables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+    }
+    public function showAddNewsLetter()
+    {
+        return view('admins.companies.add');
+    }
+    public function addNewsLetter(Request $request)
+    {
+        $rules = [
+            'companyName'=>'required',
+            'emailAdd'=>'required',
+            'password'=>'required',
+            'uploadLogo'=>'required'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        } else {
+            $company = new User;
+
+            $company->name = $request->companyName;
+            $company->email = $request->emailAdd;
+            $company->password = bcrypt($request->password);
+            $imageName = time() . '.' . $request->uploadLogo->extension();
+            $request->uploadLogo->move('system/files/UploadedBusinesses', $imageName);
+            $company->logo = 'system/files/UploadedBusinesses/' . $imageName;
+            $company->role = 'Company';
+            $company->status = 1;
+
+            $company->save();
+
+            $request->session()->flash('success', 'You have successfully added a Company.');
+
+            return redirect('admin/companies');
+        }
+    }
+    public function showEditNewsLetter(Request $request, $id)
+    {
+        $company = User::find($id);
+        
+        return view('admins.companies.edit', compact(
+            'company'
+        ));
+    }
+
+    public function doEditNewsLetter(Request $request)
+    {
+        $rules = [
+            'companyName'=>'required',
+            'emailAdd'=>'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        } else {
+            $company = User::find($request->id);
+
+            $company->name = $request->companyName;
+            $company->email = $request->emailAdd;
+            if ($company->password) {
+                $company->password = bcrypt($request->password);
+            }
+            
+            if ($request->uploadLogo) {
+                $imageName = time() . '.' . $request->uploadLogo->extension();
+            
+                $request->uploadLogo->move('system/files/UploadedBusinesses', $imageName);
+                $company->logo = 'system/files/UploadedBusinesses/' . $imageName;
+            }
+            $company->role = 'Company';
+            $company->status = 1;
+
+            $company->save();
+
+            $request->session()->flash('success', 'You have successfully added a Company.');
+
+            return redirect('admin/companies');
+        }
+    }
+    public function doDeleteNewsLetter(Request $request,$id)
     {
             $company = User::find($id);
 
