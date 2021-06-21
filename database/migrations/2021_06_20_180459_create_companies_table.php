@@ -22,6 +22,7 @@ class CreateCompaniesTable extends Migration
             $table->string('logo')->nullable();
             $table->string('website')->nullable();
             $table->string('role');
+            $table->string('status');
             $table->rememberToken();
             $table->timestamps();
         });
