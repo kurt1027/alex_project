@@ -21,7 +21,7 @@ class AdminController extends Controller
             ['role','Company'],
             ['status',1]
         ])->count();
-        
+
         return view('admins.dashboard',compact(
             'companies_count'
         ));
@@ -114,6 +114,19 @@ class AdminController extends Controller
             $company->save();
 
             $request->session()->flash('success', 'You have successfully added a Company.');
+
+            return redirect('admin/companies');
+        }
+    }
+    public function doDeleteCompany($id)
+    {
+            $company = User::find($id);
+
+            $company->status = 0;
+
+            $company->save();
+
+            $request->session()->flash('success', 'You have successfully deleted a Company.');
 
             return redirect('admin/companies');
         }

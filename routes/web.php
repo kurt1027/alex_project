@@ -20,6 +20,7 @@ Route::get('/logout', 'AuthController@doLogout');
 Route::get('/register', 'AuthController@showRegister');
 Route::post('/register', 'AuthController@doRegister');
 
+
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/dashboard', 'AdminController@showDashboard');
     Route::get('/companies', 'AdminController@showCompanies');
@@ -28,5 +29,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/add/company', 'AdminController@addCompany');
     Route::get('/show/edit/company/{id}', 'AdminController@showEditCompany');
     Route::post('/do/edit/company', 'AdminController@doEditCompany');
+    Route::get('/delete/company/{id}', 'AdminController@doDeleteCompany');
 });
 
