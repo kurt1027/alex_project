@@ -74,43 +74,7 @@
 <script src="{{ asset('admin_lte_plugins/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('admin_lte_plugins/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('admin_lte_plugins/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-<script>
-    $(document).ready(function(){
-        $("#companiesTable").DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": "{{ route('ajax.datatables') }}",
-            "column": [
-                {data:'id', name:'id'}, 
-                {data:'name', name:'name'}, 
-                {data:'email', name:'email'}, 
-                {data:'email_verified_at', name:'email_verified_at'}, 
-                {data:'password', name:'password'}, 
-                {data:'logo', name:'logo'}, 
-                {data:'website', name:'website'}, 
-                {data:'role', name:'role'}, 
-                {data:'remember_token', name:'remember_token'}, 
-                {data:'created_at', name:'created_at'},
-                {data:'updated_at', name:'updated_at'}
-            ]
-        });
-    });
-//   $(function () {
-//     $("#companiesTable").DataTable({
-//       "responsive": true, "lengthChange": false, "autoWidth": false,
-//       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-//     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-//     $('#example2').DataTable({
-//       "paging": true,
-//       "lengthChange": false,
-//       "searching": false,
-//       "ordering": true,
-//       "info": true,
-//       "autoWidth": false,
-//       "responsive": true,
-//     });
-//   });
-</script>
+
 
 </body>
 </html>

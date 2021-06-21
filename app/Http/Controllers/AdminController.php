@@ -32,7 +32,11 @@ class AdminController extends Controller
     }
     public function ajaxDataTablesCompanies()
     {
-        $data = Company::select('*');
+        $data = User::where([
+            ['role','Company'],
+            ['status',1]
+        ])
+        ->get();
         return Datatables::of($data)
                 ->addIndexColumn()
                 ->make(true);
@@ -129,6 +133,5 @@ class AdminController extends Controller
             $request->session()->flash('success', 'You have successfully deleted a Company.');
 
             return redirect('admin/companies');
-        }
     }
 }

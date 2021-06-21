@@ -23,14 +23,13 @@
             <a href="{{ url('admin/show/add/company') }}" class="btn btn-success"><i class="fa fa-plus"></i> Add Company</a>
         </div>
     </div>
-    <table id="companiesTable" class="table table-bordered table-hover">
+    <table id="companiesTable" class="table table-bordered table-hover companiesTable">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Logo</th>
                 <th>Website</th>
-                <th>Role</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,4 +40,32 @@
 
 
 @include('layouts.admins.footer')
+<script>
+    $(document).ready(function(){
+        $("#companiesTable").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ route('ajax.datatables') }}",
+            columnDefs: [
+                {
+                    "targets": [0],
+                    "data" : "name",
+                    "defaultContent": "-",
+                },
+                {
+                    "targets": [1],
+                    "data" : "email",
+                    "defaultContent": "-",
+                },
+                {
+                    "targets": [2],
+                    "data" : "website",
+                    "defaultContent": "-",
+                }     
+            ]
+        });
+    });
+
+</script>
+
 
