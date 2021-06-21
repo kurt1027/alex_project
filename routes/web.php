@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/dashboard', 'AdminController@showDashboard');
     Route::get('/companies', 'AdminController@showCompanies');
     Route::get('/ajax/datatables/companies', 'AdminController@ajaxDataTablesCompanies')->name('ajax.datatables');
-    // Route::get('/admin/dashboard', 'AdminController@showDashboard');
+    Route::get('/show/add/company', 'AdminController@showAddCompany');
+    Route::post('/add/company', 'AdminController@addCompany');
 });
 
