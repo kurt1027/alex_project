@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@doLogin');
+Route::get('/logout', 'AuthController@doLogout');
 Route::get('/register', 'AuthController@showRegister');
 Route::post('/register', 'AuthController@doRegister');
 
@@ -25,5 +26,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/ajax/datatables/companies', 'AdminController@ajaxDataTablesCompanies')->name('ajax.datatables');
     Route::get('/show/add/company', 'AdminController@showAddCompany');
     Route::post('/add/company', 'AdminController@addCompany');
+    Route::get('/show/edit/company/{id}', 'AdminController@showEditCompany');
+    Route::post('/do/edit/company', 'AdminController@doEditCompany');
 });
 
